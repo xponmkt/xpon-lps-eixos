@@ -666,6 +666,33 @@ async function submitForm() {
       console.warn('EmailJS error:', emailErr);
     }
 
+
+    // 4 — Google Sheets via Apps Script
+    // ⚠️  Após implantar o apps_script_lps.gs, cole a URL abaixo
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwoEE1k0L_6l4p1SXVLJKPMyeK6jxQgjK8_dZQD3fiRZbTzS9DLQ9MdmrSt3mylGj5G/exec';
+    if (APPS_SCRIPT_URL !== 'https://script.google.com/macros/s/AKfycbwoEE1k0L_6l4p1SXVLJKPMyeK6jxQgjK8_dZQD3fiRZbTzS9DLQ9MdmrSt3mylGj5G/exec') {
+      try {
+        await fetch(APPS_SCRIPT_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain' },
+          body: JSON.stringify({
+            nome,
+            email,
+            empresa,
+            cargo:      document.getElementById('f-cargo')?.value  || '',
+            telefone:   document.getElementById('f-tel')?.value    || '',
+            interesse:  document.getElementById('f-int')?.value    || '',
+            mensagem:   document.getElementById('f-msg')?.value    || '',
+            eixo:       EIXO,
+            origem_url: window.location.href
+          })
+        });
+      } catch(sheetsErr) {
+        // Sheets falhou mas lead já foi salvo no Supabase
+        console.warn('Sheets error:', sheetsErr);
+      }
+    }
+
     // 4 — Exibir tela de sucesso
     document.getElementById('form-body').style.display = 'none';
     document.getElementById('form-ok').style.display   = 'block';
