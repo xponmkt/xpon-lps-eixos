@@ -583,7 +583,7 @@ const SUPA = window.supabase.createClient(
 );
 
 // EmailJS (preencha sua public key no painel EmailJS.com)
-// emailjs.init('YOUR_EMAILJS_PUBLIC_KEY');
+emailjs.init('MO-cuxGbI53ATKR36');
 
 const EIXO = 'colaboracao';
 
@@ -647,20 +647,24 @@ async function submitForm() {
       tipo: 'form_submit', eixo: EIXO, origem_url: window.location.href
     });
 
-    // 3 — Email via EmailJS (ative após configurar)
-    /*
-    await emailjs.send('service_3ar7jos', 'template_lp_lead', {
-      lead_nome:     nome,
-      lead_email:    email,
-      lead_empresa:  empresa,
-      lead_telefone: document.getElementById('f-tel')?.value || '',
-      lead_interesse:document.getElementById('f-int')?.value || '',
-      lead_mensagem: document.getElementById('f-msg')?.value || '',
-      lead_eixo:     EIXO,
-      lead_origem:   window.location.href,
-      to_email:      'contato@xpon.com.br'
-    });
-    */
+    // 3 — Email via EmailJS
+    // ⚠️  Atualize o service ID abaixo após criar o Email Service no painel EmailJS
+    try {
+      await emailjs.send('service_u11rjlp', 'template_pu1pc8m', {
+        lead_nome:      nome,
+        lead_email:     email,
+        lead_empresa:   empresa,
+        lead_telefone:  document.getElementById('f-tel')?.value  || '',
+        lead_interesse: document.getElementById('f-int')?.value  || '',
+        lead_mensagem:  document.getElementById('f-msg')?.value  || '',
+        lead_eixo:      EIXO,
+        lead_origem:    window.location.href,
+        to_email:       'contato@xpon.com.br'
+      });
+    } catch(emailErr) {
+      // Email falhou mas lead já foi salvo no Supabase — não bloqueia o fluxo
+      console.warn('EmailJS error:', emailErr);
+    }
 
     // 4 — Exibir tela de sucesso
     document.getElementById('form-body').style.display = 'none';
