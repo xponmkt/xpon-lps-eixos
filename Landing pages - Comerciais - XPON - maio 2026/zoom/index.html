@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Zoom com a XP On | Reunião, telefonia e atendimento numa plataforma</title>
+<meta name="description" content="Zoom Workplace, IA do Zoom, Zoom Phone e Zoom Contact Center implantados pela XP On, integradora tecnológica brasileira. Diagnóstico, migração do PABX, licenciamento e suporte contínuo.">
+<meta property="og:title" content="Zoom com a XP On">
+<meta property="og:description" content="Reunião, telefonia e atendimento numa plataforma só, com IA incluída nos planos pagos. Implantação e suporte XP On.">
+<meta property="og:image" content="assets/poster.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap">
+<style>
+@font-face{font-family:'Disket Mono';src:url(assets/Disket-Mono-400.ttf) format('truetype');font-weight:400;font-display:swap}
+@font-face{font-family:'Disket Mono';src:url(assets/Disket-Mono-700.ttf) format('truetype');font-weight:700;font-display:swap}
+:root{
+  --ec:#4DA4C7;--ed:#3A8AAF;--es:#E5F1F5;
+  --xp-blue:#0E1DAA;--xp-blue-dark:#0A1480;--xp-blue-deep:#060D4D;--xp-blue-soft:#E8EAFA;
+  --zoom:#0B5CFF;
+  --bg:#F2F2F2;--surface:#fff;--text:#0A0A0A;--text-muted:#5F5F69;--text-subtle:#8B8B96;--border:#DEDEDE;
+  --fd:'Disket Mono','JetBrains Mono',monospace;--fb:'Space Grotesk',-apple-system,sans-serif;
+  --grad-hero:radial-gradient(ellipse at 15% 15%,rgba(77,164,199,.26) 0%,transparent 55%),radial-gradient(ellipse at 90% 85%,rgba(11,92,255,.28) 0%,transparent 55%),linear-gradient(160deg,#060D4D 0%,#0E1DAA 60%,#123a8a 100%);
+  --r-sm:6px;--r-md:12px;--r-lg:20px;--r-full:9999px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--fb);background:var(--bg);color:var(--text);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+button{cursor:pointer;border:none;background:none;font:inherit;color:inherit}
+img,video{display:block;max-width:100%}
+:focus-visible{outline:2px solid var(--ec);outline-offset:3px;border-radius:4px}
+.container{width:100%;max-width:1180px;margin:0 auto;padding:0 32px}
+.label{font-family:var(--fd);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--ec)}
+.h2{font-family:var(--fd);font-size:clamp(24px,3.2vw,40px);font-weight:700;color:var(--xp-blue);line-height:1.12;letter-spacing:-.01em;margin:12px 0 16px;max-width:22ch}
+.h2--w{color:#fff}
+.lead{font-size:18px;line-height:1.7;color:var(--text-muted);max-width:60ch}
+.lead--w{color:rgba(255,255,255,.66)}
+.btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--fd);font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:15px 26px;border-radius:var(--r-sm);transition:background .2s,transform .15s,box-shadow .2s,color .2s,border-color .2s}
+.btn--primary{color:#fff;background:var(--ec)}
+.btn--primary:hover{background:var(--ed);transform:translateY(-2px);box-shadow:0 10px 26px rgba(0,0,0,.22)}
+.btn--ghost{color:rgba(255,255,255,.82);border:1px solid rgba(255,255,255,.22)}
+.btn--ghost:hover{color:#fff;border-color:rgba(255,255,255,.55)}
+.btn--dark{color:#fff;background:var(--xp-blue)}
+.btn--dark:hover{background:var(--xp-blue-dark);transform:translateY(-2px)}
+
+/* NAV */
+.nav{position:fixed;inset:0 0 auto 0;z-index:100;background:rgba(6,13,77,.96);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.07);height:68px;display:flex;align-items:center}
+.nav__inner{display:flex;align-items:center;justify-content:space-between;gap:24px}
+.nav__left{display:flex;align-items:center;gap:18px}
+.nav__left svg{height:34px;width:auto}
+.nav__partner{display:flex;align-items:center;gap:14px;padding-left:18px;border-left:1px solid rgba(255,255,255,.18)}
+.nav__partner img{height:18px;width:auto}
+.nav__links{display:flex;gap:2px;list-style:none}
+.nav__links a{font-size:14px;font-weight:500;color:rgba(255,255,255,.62);padding:7px 12px;border-radius:var(--r-sm);transition:color .2s,background .2s}
+.nav__links a:hover,.nav__links a.active{color:#fff;background:rgba(255,255,255,.09)}
+
+/* HERO */
+.hero{background:var(--grad-hero);padding:132px 0 0;position:relative;overflow:hidden;color:#fff}
+.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='1' cy='1' r='1' fill='rgba(255,255,255,.04)'/%3E%3C/svg%3E");pointer-events:none}
+.hero__grid{position:relative;display:grid;grid-template-columns:1.05fr 1fr;gap:56px;align-items:center}
+.hero__pill{display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:var(--r-full);padding:7px 15px;margin-bottom:26px;font-family:var(--fd);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ec)}
+.hero__pill i{width:8px;height:8px;border-radius:50%;background:var(--ec);box-shadow:0 0 10px var(--ec)}
+.hero h1{font-family:var(--fd);font-size:clamp(30px,3.6vw,48px);font-weight:700;line-height:1.05;letter-spacing:-.015em;margin-bottom:22px}
+.hero h1 .rot{display:inline-block;color:var(--ec);min-width:6ch}
+.hero__desc{font-size:19px;line-height:1.65;color:rgba(255,255,255,.7);max-width:46ch;margin-bottom:36px}
+.hero__ctas{display:flex;gap:14px;flex-wrap:wrap}
+.player{position:relative;border-radius:var(--r-lg);overflow:hidden;background:#000;box-shadow:0 40px 90px rgba(0,0,0,.45),0 0 0 1px rgba(255,255,255,.1);aspect-ratio:16/9}
+.player video{width:100%;height:100%;object-fit:cover}
+.player__sound{position:absolute;right:14px;bottom:14px;display:flex;align-items:center;gap:8px;background:rgba(6,13,77,.82);backdrop-filter:blur(6px);color:#fff;font-family:var(--fd);font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:9px 14px;border-radius:var(--r-full);border:1px solid rgba(255,255,255,.18)}
+.player__sound:hover{background:var(--xp-blue)}
+.proof{position:relative;margin-top:72px;border-top:1px solid rgba(255,255,255,.12);display:grid;grid-template-columns:repeat(4,1fr)}
+.proof__item{padding:30px 24px 34px 0}
+.proof__item+.proof__item{padding-left:24px;border-left:1px solid rgba(255,255,255,.12)}
+.proof__num{font-family:var(--fd);font-size:clamp(26px,3vw,38px);font-weight:700;color:#fff;line-height:1}
+.proof__lbl{font-size:14px;color:rgba(255,255,255,.55);margin-top:10px;line-height:1.45}
+
+/* SECTIONS */
+.section{padding:110px 0}
+.section--white{background:var(--surface)}
+.section__head{margin-bottom:52px}
+
+/* TABS (produtos) */
+.tabs{display:flex;gap:6px;flex-wrap:wrap;border-bottom:1px solid var(--border);margin-bottom:44px}
+.tab{position:relative;padding:14px 18px 16px;font-weight:600;font-size:16px;color:var(--text-muted);transition:color .2s}
+.tab::after{content:'';position:absolute;left:12px;right:12px;bottom:-1px;height:3px;border-radius:3px 3px 0 0;background:var(--zoom);transform:scaleX(0);transition:transform .3s}
+.tab[aria-selected="true"]{color:var(--xp-blue)}
+.tab[aria-selected="true"]::after{transform:scaleX(1)}
+.tab:hover{color:var(--xp-blue)}
+.panel{display:grid;grid-template-columns:1fr 1.2fr;gap:60px;align-items:center}
+.panel[hidden]{display:none}
+.panel__kicker{font-size:14px;font-weight:600;color:var(--zoom);margin-bottom:10px}
+.panel h3{font-family:var(--fd);font-size:clamp(22px,2.6vw,32px);color:var(--xp-blue);line-height:1.15;margin-bottom:18px}
+.panel p{color:var(--text-muted);margin-bottom:22px;max-width:52ch}
+.feats{list-style:none;display:grid;gap:12px;margin-bottom:26px}
+.feats li{display:grid;grid-template-columns:22px 1fr;gap:12px;align-items:start;font-size:16px}
+.feats li svg{margin-top:4px}
+.feats b{font-weight:600}
+.panel__gain{display:inline-block;background:var(--xp-blue-soft);color:var(--xp-blue);border-left:3px solid var(--ec);padding:12px 16px;border-radius:0 var(--r-md) var(--r-md) 0;font-size:15px;line-height:1.5}
+.panel__media{border-radius:var(--r-lg);overflow:hidden;background:linear-gradient(135deg,#f6f0fb,#e4ecff);box-shadow:0 30px 70px rgba(6,13,77,.14)}
+.panel__media img{width:100%;height:auto}
+.panel__media--dark{background:#0B0F2E}
+.panel__media video{width:100%;aspect-ratio:16/9;object-fit:cover}
+.panel.anim{animation:panelIn .45s cubic-bezier(.16,1,.3,1)}
+@keyframes panelIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+/* COMPARE */
+.compare{background:var(--xp-blue);color:#fff}
+.switch{display:inline-flex;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:var(--r-full);padding:5px;margin-bottom:40px}
+.switch button{padding:11px 22px;border-radius:var(--r-full);font-weight:600;font-size:15px;color:rgba(255,255,255,.7);transition:background .25s,color .25s}
+.switch button[aria-pressed="true"]{background:#fff;color:var(--xp-blue)}
+.rows{display:grid;gap:0}
+.row{display:grid;grid-template-columns:200px 1fr;gap:28px;padding:26px 0;border-top:1px solid rgba(255,255,255,.12);align-items:baseline}
+.row__topic{font-family:var(--fd);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ec)}
+.row__text{font-size:clamp(19px,2vw,24px);line-height:1.35;font-weight:500;transition:opacity .3s}
+.row__text small{display:block;font-size:15px;font-weight:400;color:rgba(255,255,255,.55);margin-top:6px}
+.compare[data-mode="antes"] .row__text{color:rgba(255,255,255,.5);text-decoration:line-through;text-decoration-color:rgba(255,255,255,.35)}
+.compare[data-mode="antes"] .row__text small{display:none}
+
+/* CONFIGURADOR */
+.cfg{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.cfg__q{font-weight:600;font-size:17px;margin:0 0 14px}
+.needs{display:grid;gap:10px;margin-bottom:34px}
+.need{display:flex;align-items:flex-start;gap:14px;padding:16px 18px;border:1px solid var(--border);border-radius:var(--r-md);background:var(--surface);cursor:pointer;transition:border-color .2s,background .2s}
+.need:hover{border-color:var(--ec)}
+.need input{appearance:none;width:22px;height:22px;flex-shrink:0;border:2px solid #C8C8D0;border-radius:6px;margin-top:2px;display:grid;place-items:center;transition:background .2s,border-color .2s;cursor:pointer}
+.need input:checked{background:var(--xp-blue);border-color:var(--xp-blue)}
+.need input:checked::after{content:'';width:10px;height:6px;border-left:2.5px solid #fff;border-bottom:2.5px solid #fff;transform:rotate(-45deg) translate(1px,-1px)}
+.need:has(input:checked){border-color:var(--xp-blue);background:var(--xp-blue-soft)}
+.need b{display:block;font-weight:600}
+.need span{font-size:14px;color:var(--text-muted)}
+.size{display:flex;gap:8px;flex-wrap:wrap}
+.size button{padding:10px 16px;border:1px solid var(--border);border-radius:var(--r-full);background:var(--surface);font-size:15px;font-weight:500;transition:all .2s}
+.size button[aria-pressed="true"]{background:var(--xp-blue);border-color:var(--xp-blue);color:#fff}
+.blueprint{position:sticky;top:96px;background:var(--xp-blue-deep);border-radius:var(--r-lg);padding:34px;color:#fff;min-height:440px;background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);background-size:28px 28px}
+.blueprint__title{font-family:var(--fd);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ec);margin-bottom:22px}
+.stack{display:grid;gap:10px;margin-bottom:24px}
+.mod{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:16px 18px;border-radius:var(--r-md);background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);animation:modIn .4s cubic-bezier(.16,1,.3,1)}
+.mod b{font-weight:600}
+.mod span{font-size:13px;color:rgba(255,255,255,.55)}
+.mod--base{background:rgba(11,92,255,.28);border-color:rgba(120,165,255,.5)}
+@keyframes modIn{from{opacity:0;transform:translateY(-10px) scale(.98)}to{opacity:1;transform:none}}
+.blueprint__empty{color:rgba(255,255,255,.5);font-size:15px;padding:18px 0}
+.blueprint__note{font-size:14px;color:rgba(255,255,255,.6);line-height:1.6;border-top:1px solid rgba(255,255,255,.12);padding-top:18px;margin-bottom:22px}
+
+/* PROCESSO */
+.steps{display:grid;grid-template-columns:repeat(5,1fr);gap:24px;counter-reset:s;position:relative}
+.steps::before{content:'';position:absolute;top:26px;left:26px;right:26px;height:1px;background:var(--border)}
+.step{position:relative}
+.step__dot{width:52px;height:52px;border-radius:50%;background:var(--surface);border:2px solid var(--xp-blue);display:grid;place-items:center;font-family:var(--fd);font-size:13px;font-weight:700;color:var(--xp-blue);margin-bottom:18px}
+.step h4{font-weight:600;font-size:17px;color:var(--xp-blue);margin-bottom:6px}
+.step p{font-size:15px;color:var(--text-muted);line-height:1.55}
+
+/* ANALISTAS */
+.analysts{display:grid;grid-template-columns:repeat(4,1fr);border-top:2px solid var(--xp-blue)}
+.analyst{padding:26px 22px 8px 0}
+.analyst+.analyst{padding-left:22px;border-left:1px solid var(--border)}
+.analyst__org{font-weight:600;font-size:15px;color:var(--text-muted)}
+.analyst__res{font-family:var(--fd);font-size:30px;font-weight:700;color:var(--zoom);margin:10px 0 6px}
+.analyst__ctx{font-size:14px;color:var(--text-muted);line-height:1.5}
+.src{font-size:12px;color:var(--text-subtle);margin-top:26px}
+
+/* FAQ */
+.faq{max-width:820px}
+.faq details{border-bottom:1px solid var(--border)}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:20px;padding:22px 0;font-weight:600;font-size:18px;color:var(--xp-blue)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:'+';font-family:var(--fd);font-size:22px;color:var(--ec);transition:transform .25s}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details p{padding:0 0 22px;color:var(--text-muted);max-width:68ch}
+
+/* CONTATO (padrão LPs) */
+.contact__grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:start}
+.channels{display:grid;gap:12px;margin-top:30px}
+.channel{display:flex;align-items:center;gap:12px}
+.channel__icon{width:40px;height:40px;border-radius:var(--r-sm);background:var(--xp-blue-soft);display:grid;place-items:center;color:var(--xp-blue)}
+.channel__label{font-size:12px;color:var(--text-subtle)}
+.channel__value{font-size:15px;font-weight:600;color:var(--xp-blue)}
+.form-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--r-lg);padding:34px}
+.form-card__title{font-family:var(--fd);font-size:13px;font-weight:700;color:var(--xp-blue);margin-bottom:20px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form-group{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
+.form-label{font-family:var(--fd);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)}
+.form-input{width:100%;padding:11px 13px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-sm);font:inherit;font-size:15px;color:var(--text);outline:none;transition:border-color .2s,box-shadow .2s}
+.form-input:focus{border-color:var(--ec);box-shadow:0 0 0 3px rgba(77,164,199,.15)}
+textarea.form-input{resize:vertical;min-height:96px}
+.form-submit{width:100%;justify-content:center;margin-top:6px}
+.form-note{font-size:12px;color:var(--text-subtle);margin-top:10px;text-align:center}
+.form-error{display:none;font-size:14px;color:#B42318;margin-bottom:10px}
+.form-success{display:none;text-align:center;padding:36px 16px}
+.form-success h3{font-family:var(--fd);font-size:16px;color:var(--xp-blue);margin:14px 0 8px}
+.form-success p{color:var(--text-muted)}
+
+/* FOOTER */
+.footer{background:var(--xp-blue-deep);padding:56px 0 28px;color:rgba(255,255,255,.45)}
+.footer__top{display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;padding-bottom:36px;margin-bottom:24px;border-bottom:1px solid rgba(255,255,255,.08)}
+.footer__top svg{height:28px;width:auto;margin-bottom:14px}
+.footer h5{font-family:var(--fd);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.8);margin-bottom:12px}
+.footer ul{list-style:none;display:grid;gap:7px;font-size:14px}
+.footer a:hover{color:#fff}
+.footer__legal{font-size:12px;color:rgba(255,255,255,.3);line-height:1.6}
+.wa{position:fixed;bottom:26px;right:26px;z-index:99;width:56px;height:56px;border-radius:50%;background:#25D366;display:grid;place-items:center;box-shadow:0 6px 18px rgba(37,211,102,.45);transition:transform .2s}
+.wa:hover{transform:scale(1.08)}
+
+@media(max-width:960px){
+  .hero__grid,.panel,.cfg,.contact__grid{grid-template-columns:1fr}
+  .proof{grid-template-columns:1fr 1fr}
+  .proof__item:nth-child(3){padding-left:0;border-left:none}
+  .proof__item:nth-child(n+3){border-top:1px solid rgba(255,255,255,.12)}
+  .steps{grid-template-columns:1fr 1fr}.steps::before{display:none}
+  .analysts{grid-template-columns:1fr 1fr}.analyst:nth-child(3){padding-left:0;border-left:none}
+  .blueprint{position:static}
+  .nav__links{display:none}
+}
+@media(max-width:600px){
+  .container{padding:0 18px}.section{padding:76px 0}
+  .row{grid-template-columns:1fr;gap:6px}
+  .form-row{grid-template-columns:1fr}
+  .footer__top{grid-template-columns:1fr}
+  .nav__partner{display:none}
+  .nav .btn{padding:10px 12px;font-size:9px;letter-spacing:.08em}
+  .steps,.analysts{grid-template-columns:1fr}.analyst{padding-left:0!important;border-left:none!important;border-bottom:1px solid var(--border);padding-bottom:20px}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Principal">
+  <div class="container nav__inner">
+    <div class="nav__left">
+      <a href="../" aria-label="XP On, voltar aos eixos"><svg id="xplogo-nav" data-name="Camada 1" xmlns="http://www.w3.org/2000/svg" viewBox="330 250 1290 440" >
+  <defs>
+    <style>
+      .cls-1 {
+        font-family: SpaceGrotesk-Regular, 'Space Grotesk';
+        font-size: 78.05px;
+        font-variation-settings: 'wght' 400;
+      }
+
+      .cls-1, .cls-2, .cls-3 {
+        fill: #fff;
+      }
+
+      .cls-2 {
+        font-family: DisketMono-Bold, 'Disket Mono';
+        font-size: 320.28px;
+        font-weight: 700;
+      }
+    </style>
+  </defs>
+  <text class="cls-1" transform="translate(339.78 797.5)"><tspan x="0" y="0">Intelligent collaboration services</tspan></text>
+  <g>
+    <text class="cls-2" transform="translate(932.18 584.7)"><tspan x="0" y="0">XP</tspan></text>
+    <g>
+      <path class="cls-3" d="M380.11,670.86c-10.32,0-20.64-3.94-28.52-11.81-15.75-15.75-15.75-41.28,0-57.03l329.09-329.09c7.56-7.56,17.82-11.81,28.52-11.81s20.95,4.25,28.52,11.81l159.64,159.64c15.75,15.75,15.75,41.28,0,57.03l-168.18,168.18c-7.56,7.56-17.82,11.81-28.52,11.81s-20.95-4.25-28.52-11.81l-84.82-84.82c-15.75-15.75-15.75-41.29,0-57.04,15.75-15.75,41.29-15.75,57.04,0l56.3,56.3,111.15-111.15-102.61-102.61-300.57,300.57c-7.87,7.87-18.2,11.81-28.52,11.81Z"/>
+      <path class="cls-3" d="M477.35,439.01c-10.32,0-20.64-3.94-28.52-11.81l-97.24-97.24c-15.75-15.75-15.75-41.29,0-57.03,15.75-15.75,41.29-15.75,57.04,0l97.24,97.24c15.75,15.75,15.75,41.29,0,57.03-7.87,7.87-18.2,11.81-28.52,11.81Z"/>
+    </g>
+    <g>
+      <path class="cls-3" d="M1555.43,479.2c0-.96.34-1.79,1.04-2.48.69-.69,1.52-1.04,2.48-1.04h15.05c.96,0,1.79.35,2.48,1.04.69.7,1.04,1.52,1.04,2.48v102.81c0,.96-.35,1.79-1.04,2.48-.7.69-1.52,1.04-2.48,1.04h-15.05c-.96,0-1.79-.35-2.48-1.04-.7-.69-1.04-1.52-1.04-2.48v-37.47l-43.88-39.39v76.87c0,.96-.35,1.79-1.04,2.48-.7.69-1.52,1.04-2.48,1.04h-14.89c-.96,0-1.79-.35-2.48-1.04s-1.04-1.52-1.04-2.48v-102.81c0-.96.35-1.79,1.04-2.48.69-.69,1.52-1.04,2.48-1.04h14.89c.96,0,2.03.24,3.2.72,1.17.48,2.13,1.04,2.88,1.68l41.32,36.99v-35.87Z"/>
+      <path class="cls-3" d="M1463.67,493.13c-1.5-3.42-3.52-6.41-6.08-8.97-2.56-2.56-5.55-4.59-8.97-6.08-3.42-1.49-7.1-2.24-11.05-2.24h-1.21v21.94h1.21c1.81,0,3.34.59,4.56,1.76,1.23,1.18,1.84,2.67,1.84,4.48v53.33c0,1.82-.61,3.31-1.84,4.48-1.23,1.18-2.75,1.76-4.56,1.76h-31.23c-1.82,0-3.34-.59-4.56-1.76-1.23-1.17-1.84-2.67-1.84-4.48v-53.33c0-1.82.61-3.31,1.84-4.48,1.23-1.17,2.75-1.76,4.56-1.76h1.45v-21.94h-1.45c-3.95,0-7.63.75-11.05,2.24-3.42,1.5-6.41,3.52-8.97,6.08s-4.59,5.55-6.08,8.97c-1.5,3.42-2.24,7.05-2.24,10.89v53.33c0,3.84.75,7.47,2.24,10.89,1.49,3.42,3.52,6.41,6.08,8.97s5.55,4.59,8.97,6.08c3.42,1.5,7.1,2.24,11.05,2.24h31.23c3.95,0,7.63-.75,11.05-2.24,3.42-1.49,6.4-3.52,8.97-6.08,2.56-2.56,4.59-5.55,6.08-8.97,1.49-3.41,2.24-7.05,2.24-10.89v-53.33c0-3.84-.75-7.47-2.24-10.89Z"/>
+      <rect class="cls-3" x="1411.27" y="465.42" width="21.38" height="43.18" rx="1.98" ry="1.98"/>
+    </g>
+  </g>
+</svg></a>
+      <div class="nav__partner"><img src="assets/zoom-white.svg" alt="Zoom" width="78" height="18"></div>
+    </div>
+    <ul class="nav__links">
+      <li><a href="#plataforma">Plataforma</a></li>
+      <li><a href="#comparativo">O que muda</a></li>
+      <li><a href="#cenario">Monte seu cenário</a></li>
+      <li><a href="#como">Como implantamos</a></li>
+      <li><a href="#faq">Dúvidas</a></li>
+    </ul>
+    <a href="#contato" class="btn btn--primary" onclick="trackCTA('nav')">Agendar demonstração</a>
+  </div>
+</nav>
+
+<header class="hero" id="inicio">
+  <div class="container">
+    <div class="hero__grid">
+      <div>
+        <div class="hero__pill"><i></i>Eixo Colaboração | Parceria Zoom</div>
+        <h1>Reunião, telefone e atendimento numa plataforma só</h1>
+        <p class="hero__desc">A XP On implanta o Zoom Workplace, o Zoom Phone e o Zoom Contact Center na sua empresa, com IA incluída nos planos pagos e um time que cuida da migração do PABX ao suporte do dia a dia.</p>
+        <div class="hero__ctas">
+          <a href="#contato" class="btn btn--primary" onclick="trackCTA('hero')">Agendar demonstração</a>
+          <a href="#cenario" class="btn btn--ghost">Montar meu cenário</a>
+        </div>
+      </div>
+      <div class="player">
+        <video id="heroVideo" src="assets/xpon-zoom-explainer.mp4" poster="assets/poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Vídeo: XP On e Zoom em 2 minutos"></video>
+        <button class="player__sound" id="soundBtn" aria-pressed="false">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path id="sndWave" d="M15.5 8.5a5 5 0 010 7M19 5a10 10 0 010 14" opacity=".35"/></svg>
+          <span id="soundLbl">Ativar som</span>
+        </button>
+      </div>
+    </div>
+    <div class="proof" id="proof">
+      <div class="proof__item"><div class="proof__num" data-count="99.999" data-dec="3" data-suf="%">99,999%</div><div class="proof__lbl">de disponibilidade no Zoom Phone, com SLA corporativo</div></div>
+      <div class="proof__item"><div class="proof__num" data-count="50" data-pre="+">+50</div><div class="proof__lbl">países com telefonia local, Brasil incluso</div></div>
+      <div class="proof__item"><div class="proof__num" data-count="7" data-suf=" anos">7 anos</div><div class="proof__lbl">seguidos como Líder no Gartner Magic Quadrant de UCaaS</div></div>
+      <div class="proof__item"><div class="proof__num">R$ 0</div><div class="proof__lbl">a mais pelos recursos de IA nos planos pagos</div></div>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="section section--white" id="plataforma">
+  <div class="container">
+    <div class="section__head">
+      <span class="label">A plataforma</span>
+      <h2 class="h2">Tudo o que o seu time usa para conversar, no mesmo lugar</h2>
+      <p class="lead">Quatro frentes que funcionam juntas. Escolha uma para ver o que muda no dia a dia.</p>
+    </div>
+    <div class="tabs" role="tablist" aria-label="Produtos Zoom">
+      <button class="tab" role="tab" aria-selected="true" aria-controls="p-workplace" id="t-workplace">Zoom Workplace</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="p-ia" id="t-ia">IA e ZoomMate</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="p-phone" id="t-phone">Zoom Phone</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="p-cc" id="t-cc">Contact Center</button>
+    </div>
+
+    <div class="panel" role="tabpanel" id="p-workplace" aria-labelledby="t-workplace">
+      <div>
+        <div class="panel__kicker">Zoom Workplace</div>
+        <h3>Uma plataforma para todas as formas como você trabalha</h3>
+        <p>Reuniões, chat, e-mail e agenda, documentos, quadro branco e salas num único app, com uma administração só.</p>
+        <ul class="feats">
+          <li><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#0B5CFF"/><path d="M7 12.5l3.2 3.2L17 8.8" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Meetings e Rooms</b> com áudio e vídeo de qualidade, no notebook ou na sala</span></li>
+          <li><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#0B5CFF"/><path d="M7 12.5l3.2 3.2L17 8.8" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Chat, Docs e Whiteboard</b> para o trabalho continuar depois da reunião</span></li>
+          <li><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#0B5CFF"/><path d="M7 12.5l3.2 3.2L17 8.8" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Mail, Calendar e Clips</b> integrados ao mesmo fluxo</span></li>
+          <li><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#0B5CFF"/><path d="M7 12.5l3.2 3.2L17 8.8" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Workvivo</b> para comunicação interna e engajamento</span></li>
+        </ul>
+        <div class="panel__gain">Menos contratos e logins. Uma interface que o time aprende uma vez.</div>
+      </div>
+      <div class="panel__media"><img src="assets/128_one-platform-for-all-the-ways-work.webp" alt="Tela do Zoom Workplace com reunião, documento e chat lado a lado" loading="lazy"></div>
+    </div>
+
+    <div class="panel" role="tabpanel" id="p-ia" aria-labelledby="t-ia" hidden>
+      <div>
+        <div class="panel__kicker">IA do Zoom e ZoomMate</div>
+        <h3>A IA trabalha junto, em cada reunião e chamada</h3>
+        <p>Os recursos de IA vêm incluídos nos planos pagos do Zoom Workplace, sem custo adicional. Para ir além, o ZoomMate transforma conversas em ação.</p>
+        <ul class="feats">
+          <li><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5c.5 4.9 2.6 7 7.5 7.5v.1c-4.9.5-7 2.6-7.5 7.5h-.1c-.5-4.9-2.6-7-7.5-7.5V9c4.9-.5 7-2.6 7.5-7.5z" fill="#0B5CFF"/><path d="M19 15c.2 2 1 2.8 3 3-2 .2-2.8 1-3 3-.2-2-1-2.8-3-3 2-.2 2.8-1 3-3z" fill="#0B5CFF" opacity=".7"/></svg><span><b>Resumo automático</b> de reuniões e de chamadas no Zoom Phone</span></li>
+          <li><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5c.5 4.9 2.6 7 7.5 7.5v.1c-4.9.5-7 2.6-7.5 7.5h-.1c-.5-4.9-2.6-7-7.5-7.5V9c4.9-.5 7-2.6 7.5-7.5z" fill="#0B5CFF"/><path d="M19 15c.2 2 1 2.8 3 3-2 .2-2.8 1-3 3-.2-2-1-2.8-3-3 2-.2 2.8-1 3-3z" fill="#0B5CFF" opacity=".7"/></svg><span><b>Perguntas ao vivo</b> sobre o que foi dito, para quem entrou atrasado</span></li>
+          <li><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5c.5 4.9 2.6 7 7.5 7.5v.1c-4.9.5-7 2.6-7.5 7.5h-.1c-.5-4.9-2.6-7-7.5-7.5V9c4.9-.5 7-2.6 7.5-7.5z" fill="#0B5CFF"/><path d="M19 15c.2 2 1 2.8 3 3-2 .2-2.8 1-3 3-.2-2-1-2.8-3-3 2-.2 2.8-1 3-3z" fill="#0B5CFF" opacity=".7"/></svg><span><b>Rascunhos</b> de mensagens e e-mails a partir do contexto</span></li>
+          <li><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5c.5 4.9 2.6 7 7.5 7.5v.1c-4.9.5-7 2.6-7.5 7.5h-.1c-.5-4.9-2.6-7-7.5-7.5V9c4.9-.5 7-2.6 7.5-7.5z" fill="#0B5CFF"/><path d="M19 15c.2 2 1 2.8 3 3-2 .2-2.8 1-3 3-.2-2-1-2.8-3-3 2-.2 2.8-1 3-3z" fill="#0B5CFF" opacity=".7"/></svg><span><b>ZoomMate</b> com notas, briefings, tarefas executadas e agentes personalizados</span></li>
+        </ul>
+        <div class="panel__gain">O time sai da reunião com resumo e próximos passos, sem ninguém anotando.</div>
+      </div>
+      <div class="panel__media"><img src="assets/098_hero-workplace.webp" alt="Reunião no Zoom com resumo gerado por IA" loading="lazy"></div>
+    </div>
+
+    <div class="panel" role="tabpanel" id="p-phone" aria-labelledby="t-phone" hidden>
+      <div>
+        <div class="panel__kicker">Zoom Phone</div>
+        <h3>Telefonia em nuvem, sem PABX para manter</h3>
+        <p>Ligações, filas, SMS e voicemail no mesmo app da reunião e do chat. Do escritório, de casa ou do celular.</p>
+        <ul class="feats">
+          <li><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#0B5CFF"/><path d="M7 12.5l3.2 3.2L17 8.8" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Portabilidade</b> dos seus números atuais</span></li>
+          <li><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#0B5CFF"/><path d="M7 12.5l3.2 3.2L17 8.8" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Filas e linhas compartilhadas</b> para levar a ligação a quem resolve</span></li>
+          <li><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#0B5CFF"/><path d="M7 12.5l3.2 3.2L17 8.8" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Voicemail transcrito</b> e resumos de chamadas com IA</span></li>
+          <li><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#0B5CFF"/><path d="M7 12.5l3.2 3.2L17 8.8" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Traga sua operadora (BYOC)</b> e aparelhos Poly e Yealink</span></li>
+        </ul>
+        <div class="panel__gain">99,999% de disponibilidade e fim da sala do PABX.</div>
+      </div>
+      <div class="panel__media"><img src="assets/207_zoom-phone-hero.webp" alt="Interface do Zoom Phone com histórico de chamadas e assistente de IA" loading="lazy"></div>
+    </div>
+
+    <div class="panel" role="tabpanel" id="p-cc" aria-labelledby="t-cc" hidden>
+      <div>
+        <div class="panel__kicker">Zoom Contact Center</div>
+        <h3>Centrada na conexão, com IA nativa</h3>
+        <p>Voz, vídeo, chat, SMS, e-mail, WhatsApp e redes sociais numa única plataforma conectada ao resto da empresa.</p>
+        <ul class="feats">
+          <li><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#0B5CFF"/><path d="M7 12.5l3.2 3.2L17 8.8" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Virtual Agent</b> que resolve pedidos frequentes 24/7, em vários idiomas</span></li>
+          <li><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#0B5CFF"/><path d="M7 12.5l3.2 3.2L17 8.8" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>AI Expert Assist</b> orientando o atendente durante a conversa</span></li>
+          <li><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#0B5CFF"/><path d="M7 12.5l3.2 3.2L17 8.8" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Gestão de qualidade</b> com IA avaliando cada interação</span></li>
+          <li><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#0B5CFF"/><path d="M7 12.5l3.2 3.2L17 8.8" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Escalas e painéis</b> em tempo real para a supervisão</span></li>
+        </ul>
+        <div class="panel__gain">Case divulgado pela Zoom: a Cricut chegou a 50% de contenção no autoatendimento com o Virtual Agent.</div>
+      </div>
+      <div class="panel__media panel__media--dark"><img src="assets/046_contact-center-hero.webp" alt="Painel do Zoom Contact Center com transferência de chamada e base de conhecimento" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
+<section class="section compare" id="comparativo" data-mode="depois">
+  <div class="container">
+    <div class="section__head">
+      <span class="label">O que muda na prática</span>
+      <h2 class="h2 h2--w">Compare o seu cenário atual com o Zoom</h2>
+    </div>
+    <div class="switch" role="group" aria-label="Alternar comparação">
+      <button type="button" data-mode="antes" aria-pressed="false">Soluções tradicionais</button>
+      <button type="button" data-mode="depois" aria-pressed="true">Com Zoom e XP On</button>
+    </div>
+    <div class="rows">
+      <div class="row"><div class="row__topic">Ferramentas</div><div class="row__text" data-antes="Várias ferramentas, contratos e fornecedores" data-depois="Uma plataforma, um app, uma gestão<small>Meetings, Chat, Phone e Contact Center no mesmo painel de administração.</small>"></div></div>
+      <div class="row"><div class="row__topic">Inteligência artificial</div><div class="row__text" data-antes="IA cobrada como produto à parte" data-depois="Recursos de IA incluídos nos planos pagos<small>Resumos, perguntas ao vivo e rascunhos sem custo adicional.</small>"></div></div>
+      <div class="row"><div class="row__topic">Telefonia</div><div class="row__text" data-antes="PABX físico, hardware e contrato de manutenção" data-depois="Telefonia em nuvem com 99,999% de disponibilidade<small>Portabilidade de número, filas e aparelhos Poly e Yealink.</small>"></div></div>
+      <div class="row"><div class="row__topic">Atendimento</div><div class="row__text" data-antes="Contact center isolado do resto da empresa" data-depois="Atendimento no mesmo ambiente de reunião, chat e telefone<small>Atendente, especialista e cliente conectados no mesmo fluxo.</small>"></div></div>
+      <div class="row"><div class="row__topic">Adoção</div><div class="row__text" data-antes="Curva de aprendizado longa e baixa adesão" data-depois="A interface que as equipes já conhecem<small>Treinamento e acompanhamento da XP On depois da implantação.</small>"></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="cenario">
+  <div class="container">
+    <div class="section__head">
+      <span class="label">Monte seu cenário</span>
+      <h2 class="h2">Do que a sua operação precisa?</h2>
+      <p class="lead">Marque o que faz sentido hoje. A gente monta o desenho da solução e leva para o diagnóstico com você.</p>
+    </div>
+    <div class="cfg">
+      <div>
+        <p class="cfg__q">O que você quer resolver</p>
+        <div class="needs" id="needs">
+          <label class="need"><input type="checkbox" value="meet" checked><div><b>Reuniões e colaboração</b><span>Vídeo, chat, documentos e agenda no mesmo lugar</span></div></label>
+          <label class="need"><input type="checkbox" value="ai"><div><b>Produtividade com IA</b><span>Resumos, próximos passos e tarefas automáticas</span></div></label>
+          <label class="need"><input type="checkbox" value="phone"><div><b>Substituir o PABX</b><span>Telefonia em nuvem com os números atuais</span></div></label>
+          <label class="need"><input type="checkbox" value="cc"><div><b>Atendimento ao cliente</b><span>Central multicanal com WhatsApp e IA</span></div></label>
+          <label class="need"><input type="checkbox" value="rooms"><div><b>Salas de reunião</b><span>Equipamentos e salas prontas para o híbrido</span></div></label>
+          <label class="need"><input type="checkbox" value="intra"><div><b>Comunicação interna</b><span>Engajamento e informação para todo o time</span></div></label>
+        </div>
+        <p class="cfg__q">Tamanho do time</p>
+        <div class="size" id="size">
+          <button type="button" data-size="até 50 pessoas" aria-pressed="false">Até 50</button>
+          <button type="button" data-size="51 a 250 pessoas" aria-pressed="true">51 a 250</button>
+          <button type="button" data-size="251 a 1.000 pessoas" aria-pressed="false">251 a 1.000</button>
+          <button type="button" data-size="mais de 1.000 pessoas" aria-pressed="false">Mais de 1.000</button>
+        </div>
+      </div>
+      <aside class="blueprint" aria-live="polite">
+        <div class="blueprint__title">Seu desenho de solução</div>
+        <div class="stack" id="stack"></div>
+        <p class="blueprint__note" id="bpNote"></p>
+        <a href="#contato" class="btn btn--primary" id="bpCta">Levar este cenário para o diagnóstico</a>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="section section--white" id="como">
+  <div class="container">
+    <div class="section__head">
+      <span class="label">Como implantamos</span>
+      <h2 class="h2">A Zoom entrega a plataforma. A XP On entrega o resultado</h2>
+      <p class="lead">Uma sequência pensada para migrar sem parar a operação.</p>
+    </div>
+    <ol class="steps" style="list-style:none">
+      <li class="step"><div class="step__dot">01</div><h4>Diagnóstico</h4><p>Mapeamos ramais, filas, salas, integrações e como o time trabalha hoje.</p></li>
+      <li class="step"><div class="step__dot">02</div><h4>Licenciamento</h4><p>O plano certo para cada perfil, sem pagar por recurso que ninguém usa.</p></li>
+      <li class="step"><div class="step__dot">03</div><h4>Implantação</h4><p>Migração do PABX, portabilidade dos números e configuração do Contact Center.</p></li>
+      <li class="step"><div class="step__dot">04</div><h4>Salas e dispositivos</h4><p>HP | Poly, Logitech e Yealink instalados e integrados ao Zoom.</p></li>
+      <li class="step"><div class="step__dot">05</div><h4>Suporte contínuo</h4><p>Treinamento, gestão do ambiente e evolução conforme o negócio cresce.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="section" id="analistas">
+  <div class="container">
+    <div class="section__head">
+      <span class="label">Reconhecimento</span>
+      <h2 class="h2">Reconhecida pelos principais analistas do mercado</h2>
+    </div>
+    <div class="analysts">
+      <div class="analyst"><div class="analyst__org">Gartner</div><div class="analyst__res">Líder</div><div class="analyst__ctx">Magic Quadrant de UCaaS, sétimo ano consecutivo (2026)</div></div>
+      <div class="analyst"><div class="analyst__org">Forrester</div><div class="analyst__res">Líder</div><div class="analyst__ctx">The Forrester Wave UCaaS (3º trimestre de 2025)</div></div>
+      <div class="analyst"><div class="analyst__org">IDC</div><div class="analyst__res">Líder</div><div class="analyst__ctx">MarketScape Agentic CCaaS (2026)</div></div>
+      <div class="analyst"><div class="analyst__org">G2</div><div class="analyst__res">4,6/5</div><div class="analyst__ctx">Mais de 54 mil avaliações de usuários</div></div>
+    </div>
+    <p class="src">Fontes: comunicados e site oficial da Zoom (zoom.com e news.zoom.com), consultados em outubro de 2026.</p>
+  </div>
+</section>
+
+<section class="section section--white" id="faq">
+  <div class="container">
+    <div class="section__head">
+      <span class="label">Dúvidas frequentes</span>
+      <h2 class="h2">O que os times perguntam antes de migrar</h2>
+    </div>
+    <div class="faq">
+      <details><summary>Consigo manter os números de telefone atuais?</summary><p>Sim. O Zoom Phone permite a portabilidade dos números corporativos. A XP On conduz o processo junto com a operadora para que clientes e fornecedores continuem ligando para os mesmos números.</p></details>
+      <details><summary>Preciso trocar de operadora?</summary><p>Não necessariamente. Com o modelo BYOC (traga sua operadora), dá para manter a conectividade com o provedor atual. No diagnóstico avaliamos o que faz mais sentido para o seu caso.</p></details>
+      <details><summary>A IA do Zoom tem custo extra?</summary><p>Os recursos de IA, como resumo de reuniões, perguntas ao vivo, rascunhos e resumos de chamadas, estão incluídos nos planos pagos do Zoom Workplace. O ZoomMate é um assistente complementar, com plano próprio, para quem quer automatizar tarefas e criar agentes.</p></details>
+      <details><summary>Os aparelhos e salas que já temos funcionam?</summary><p>Muitos dispositivos HP | Poly, Yealink e Logitech são compatíveis com Zoom Phone e Zoom Rooms. Fazemos o levantamento do parque atual e indicamos o que aproveitar e o que atualizar.</p></details>
+      <details><summary>O Contact Center atende pelo WhatsApp?</summary><p>Sim. O Zoom Contact Center reúne voz, vídeo, chat, SMS, e-mail, redes sociais e WhatsApp numa única plataforma, com o Virtual Agent e a IA apoiando o atendimento.</p></details>
+      <details><summary>Quanto tempo leva a migração?</summary><p>Depende do tamanho da operação e das integrações. Trabalhamos por fases, começando pelos times que ganham mais com a mudança, para que a operação nunca pare. O prazo sai do diagnóstico.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="contato">
+  <div class="container">
+    <div class="contact__grid">
+      <div>
+        <span class="label">Próximo passo</span>
+        <h2 class="h2">Vamos ver o Zoom funcionando na sua operação?</h2>
+        <p class="lead">Conte um pouco do seu cenário. Em até um dia útil um especialista da XP On retorna para agendar a demonstração e o diagnóstico.</p>
+        <div class="channels">
+          <div class="channel"><div class="channel__icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6A19.8 19.8 0 012.1 4.2 2 2 0 014.1 2h3a2 2 0 012 1.7c.1 1 .4 1.9.7 2.8a2 2 0 01-.5 2.1L8 9.9a16 16 0 006 6l1.3-1.3a2 2 0 012.1-.4c.9.3 1.8.6 2.8.7a2 2 0 011.7 2z"/></svg></div><div><div class="channel__label">WhatsApp e telefone</div><div class="channel__value">+55 11 93954-8201</div></div></div>
+          <div class="channel"><div class="channel__icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6l-10 7L2 6"/></svg></div><div><div class="channel__label">E-mail comercial</div><div class="channel__value">contato@xpon.com.br</div></div></div>
+        </div>
+      </div>
+      <div class="form-card">
+        <form id="form-body" novalidate onsubmit="submitForm(event)">
+          <p class="form-card__title">Agendar demonstração e diagnóstico</p>
+          <div class="form-row">
+            <div class="form-group"><label class="form-label" for="f-nome">Nome *</label><input class="form-input" id="f-nome" autocomplete="name" required></div>
+            <div class="form-group"><label class="form-label" for="f-cargo">Cargo</label><input class="form-input" id="f-cargo" autocomplete="organization-title"></div>
+          </div>
+          <div class="form-group"><label class="form-label" for="f-empresa">Empresa *</label><input class="form-input" id="f-empresa" autocomplete="organization" required></div>
+          <div class="form-row">
+            <div class="form-group"><label class="form-label" for="f-email">E-mail *</label><input class="form-input" type="email" id="f-email" autocomplete="email" required></div>
+            <div class="form-group"><label class="form-label" for="f-tel">Telefone</label><input class="form-input" type="tel" id="f-tel" autocomplete="tel"></div>
+          </div>
+          <div class="form-group"><label class="form-label" for="f-int">Interesse principal</label>
+            <select class="form-input" id="f-int">
+              <option value="">Selecione</option>
+              <option>Zoom Workplace (reuniões e colaboração)</option>
+              <option>IA do Zoom e ZoomMate</option>
+              <option>Zoom Phone (substituir o PABX)</option>
+              <option>Zoom Contact Center</option>
+              <option>Zoom Rooms e dispositivos</option>
+              <option>Renovação ou ajuste de licenças Zoom</option>
+              <option>Plataforma completa</option>
+            </select>
+          </div>
+          <div class="form-group"><label class="form-label" for="f-msg">Seu cenário</label><textarea class="form-input" id="f-msg" placeholder="Quantos usuários, ramais ou atendentes, o que usam hoje..."></textarea></div>
+          <p class="form-error" id="formErr" role="alert">Preencha nome, e-mail e empresa para continuar.</p>
+          <button class="btn btn--dark form-submit" type="submit">Solicitar demonstração</button>
+          <p class="form-note">Retorno em até 1 dia útil. Sem compromisso.</p>
+        </form>
+        <div class="form-success" id="form-ok" role="status">
+          <svg width="44" height="44" viewBox="0 0 24 24" style="margin:0 auto"><circle cx="12" cy="12" r="12" fill="#0E1DAA"/><path d="M7 12.5l3.2 3.2L17 8.8" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <h3>Solicitação recebida</h3>
+          <p>Um especialista da XP On entra em contato em até 1 dia útil. Se preferir, chame agora no WhatsApp: +55 11 93954-8201.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__top">
+      <div><svg id="xplogo-foot" data-name="Camada 1" xmlns="http://www.w3.org/2000/svg" viewBox="330 250 1290 440" >
+  <defs>
+    <style>
+      .cls-1 {
+        font-family: SpaceGrotesk-Regular, 'Space Grotesk';
+        font-size: 78.05px;
+        font-variation-settings: 'wght' 400;
+      }
+
+      .cls-1, .cls-2, .cls-3 {
+        fill: #fff;
+      }
+
+      .cls-2 {
+        font-family: DisketMono-Bold, 'Disket Mono';
+        font-size: 320.28px;
+        font-weight: 700;
+      }
+    </style>
+  </defs>
+  <text class="cls-1" transform="translate(339.78 797.5)"><tspan x="0" y="0">Intelligent collaboration services</tspan></text>
+  <g>
+    <text class="cls-2" transform="translate(932.18 584.7)"><tspan x="0" y="0">XP</tspan></text>
+    <g>
+      <path class="cls-3" d="M380.11,670.86c-10.32,0-20.64-3.94-28.52-11.81-15.75-15.75-15.75-41.28,0-57.03l329.09-329.09c7.56-7.56,17.82-11.81,28.52-11.81s20.95,4.25,28.52,11.81l159.64,159.64c15.75,15.75,15.75,41.28,0,57.03l-168.18,168.18c-7.56,7.56-17.82,11.81-28.52,11.81s-20.95-4.25-28.52-11.81l-84.82-84.82c-15.75-15.75-15.75-41.29,0-57.04,15.75-15.75,41.29-15.75,57.04,0l56.3,56.3,111.15-111.15-102.61-102.61-300.57,300.57c-7.87,7.87-18.2,11.81-28.52,11.81Z"/>
+      <path class="cls-3" d="M477.35,439.01c-10.32,0-20.64-3.94-28.52-11.81l-97.24-97.24c-15.75-15.75-15.75-41.29,0-57.03,15.75-15.75,41.29-15.75,57.04,0l97.24,97.24c15.75,15.75,15.75,41.29,0,57.03-7.87,7.87-18.2,11.81-28.52,11.81Z"/>
+    </g>
+    <g>
+      <path class="cls-3" d="M1555.43,479.2c0-.96.34-1.79,1.04-2.48.69-.69,1.52-1.04,2.48-1.04h15.05c.96,0,1.79.35,2.48,1.04.69.7,1.04,1.52,1.04,2.48v102.81c0,.96-.35,1.79-1.04,2.48-.7.69-1.52,1.04-2.48,1.04h-15.05c-.96,0-1.79-.35-2.48-1.04-.7-.69-1.04-1.52-1.04-2.48v-37.47l-43.88-39.39v76.87c0,.96-.35,1.79-1.04,2.48-.7.69-1.52,1.04-2.48,1.04h-14.89c-.96,0-1.79-.35-2.48-1.04s-1.04-1.52-1.04-2.48v-102.81c0-.96.35-1.79,1.04-2.48.69-.69,1.52-1.04,2.48-1.04h14.89c.96,0,2.03.24,3.2.72,1.17.48,2.13,1.04,2.88,1.68l41.32,36.99v-35.87Z"/>
+      <path class="cls-3" d="M1463.67,493.13c-1.5-3.42-3.52-6.41-6.08-8.97-2.56-2.56-5.55-4.59-8.97-6.08-3.42-1.49-7.1-2.24-11.05-2.24h-1.21v21.94h1.21c1.81,0,3.34.59,4.56,1.76,1.23,1.18,1.84,2.67,1.84,4.48v53.33c0,1.82-.61,3.31-1.84,4.48-1.23,1.18-2.75,1.76-4.56,1.76h-31.23c-1.82,0-3.34-.59-4.56-1.76-1.23-1.17-1.84-2.67-1.84-4.48v-53.33c0-1.82.61-3.31,1.84-4.48,1.23-1.17,2.75-1.76,4.56-1.76h1.45v-21.94h-1.45c-3.95,0-7.63.75-11.05,2.24-3.42,1.5-6.41,3.52-8.97,6.08s-4.59,5.55-6.08,8.97c-1.5,3.42-2.24,7.05-2.24,10.89v53.33c0,3.84.75,7.47,2.24,10.89,1.49,3.42,3.52,6.41,6.08,8.97s5.55,4.59,8.97,6.08c3.42,1.5,7.1,2.24,11.05,2.24h31.23c3.95,0,7.63-.75,11.05-2.24,3.42-1.49,6.4-3.52,8.97-6.08,2.56-2.56,4.59-5.55,6.08-8.97,1.49-3.41,2.24-7.05,2.24-10.89v-53.33c0-3.84-.75-7.47-2.24-10.89Z"/>
+      <rect class="cls-3" x="1411.27" y="465.42" width="21.38" height="43.18" rx="1.98" ry="1.98"/>
+    </g>
+  </g>
+</svg><p style="max-width:300px;font-size:14px;line-height:1.7">Integradora tecnológica brasileira. Soluções que evoluem com o seu negócio.</p></div>
+      <div><h5>Zoom com a XP On</h5><ul><li><a href="#plataforma">Plataforma</a></li><li><a href="#cenario">Monte seu cenário</a></li><li><a href="#como">Como implantamos</a></li><li><a href="#faq">Dúvidas</a></li></ul></div>
+      <div><h5>Contato</h5><ul><li><a href="tel:+5511939548201">+55 11 93954-8201</a></li><li><a href="mailto:contato@xpon.com.br">contato@xpon.com.br</a></li><li><a href="../colaboracao/">Eixo Colaboração</a></li></ul></div>
+    </div>
+    <p class="footer__legal">© 2026 XP On. Zoom e os nomes de produtos Zoom são marcas da Zoom Communications, Inc. Imagens de produto: Zoom.</p>
+  </div>
+</footer>
+
+<a class="wa" href="https://wa.me/5511939548201?text=Ol%C3%A1%2C%20vim%20pela%20p%C3%A1gina%20do%20Zoom" target="_blank" rel="noopener" onclick="openWhatsApp(event)" aria-label="Falar no WhatsApp">
+  <svg width="26" height="26" fill="#fff" viewBox="0 0 24 24"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.26-.46-2.39-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.61-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.7.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2-1.41.25-.7.25-1.29.18-1.41-.08-.13-.28-.2-.57-.35M12.05 21.79h-.01a9.87 9.87 0 01-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 01-1.51-5.26c0-5.45 4.44-9.88 9.89-9.88 2.64 0 5.12 1.03 6.99 2.9a9.82 9.82 0 012.89 6.99c0 5.45-4.44 9.88-9.89 9.88m8.41-18.3A11.82 11.82 0 0012.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.3-1.65a11.88 11.88 0 005.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.89 0-3.18-1.24-6.17-3.48-8.41z"/></svg>
+</a>
+
+<script>
+/* ---------- Som do vídeo ---------- */
+const vid=document.getElementById('heroVideo'),sBtn=document.getElementById('soundBtn');
+sBtn.addEventListener('click',()=>{
+  const on=vid.muted;
+  if(on&&!vid.dataset.restarted){vid.currentTime=0;vid.dataset.restarted='1';vid.loop=false}
+  vid.muted=!on;vid.play();
+  sBtn.setAttribute('aria-pressed',on);document.getElementById('soundLbl').textContent=on?'Desativar som':'Ativar som';
+  document.getElementById('sndWave').setAttribute('opacity',on?'1':'.35');
+  if(on)trackCTA('video_som');
+});
+vid.addEventListener('ended',()=>{vid.loop=true;vid.play()});
+if(matchMedia('(prefers-reduced-motion: reduce)').matches){vid.removeAttribute('autoplay');vid.pause()}
+
+/* ---------- Contadores (uma vez) ---------- */
+const proof=document.getElementById('proof');
+new IntersectionObserver((es,o)=>{es.forEach(e=>{if(!e.isIntersecting)return;o.disconnect();
+  proof.querySelectorAll('[data-count]').forEach(el=>{
+    const to=+el.dataset.count,dec=+(el.dataset.dec||0),pre=el.dataset.pre||'',suf=el.dataset.suf||'',t0=performance.now(),D=1400;
+    const tick=t=>{const p=Math.min(1,(t-t0)/D),v=to*(1-Math.pow(1-p,3));el.textContent=pre+v.toFixed(dec).replace('.',',')+suf;if(p<1)requestAnimationFrame(tick)};
+    requestAnimationFrame(tick);
+  });
+})},{threshold:.4}).observe(proof);
+
+/* ---------- Abas ---------- */
+const tabs=[...document.querySelectorAll('.tab')];
+function selectTab(t){tabs.forEach(x=>{const on=x===t;x.setAttribute('aria-selected',on);x.tabIndex=on?0:-1;const p=document.getElementById(x.getAttribute('aria-controls'));p.hidden=!on;if(on){p.classList.remove('anim');void p.offsetWidth;p.classList.add('anim')}})}
+tabs.forEach((t,i)=>{t.addEventListener('click',()=>selectTab(t));t.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){const n=tabs[(i+(e.key==='ArrowRight'?1:-1)+tabs.length)%tabs.length];selectTab(n);n.focus()}})});
+tabs.forEach((t,i)=>t.tabIndex=i===0?0:-1);
+
+/* ---------- Comparativo ---------- */
+const cmp=document.getElementById('comparativo');
+function setMode(m){cmp.dataset.mode=m;cmp.querySelectorAll('.switch button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.mode===m));cmp.querySelectorAll('.row__text').forEach(r=>{r.innerHTML=r.dataset[m]})}
+cmp.querySelectorAll('.switch button').forEach(b=>b.addEventListener('click',()=>setMode(b.dataset.mode)));
+setMode('depois');
+
+/* ---------- Configurador ---------- */
+const MODS={
+  meet:{n:'Zoom Workplace',d:'Meetings, Chat, Docs, Whiteboard, Mail e Calendar',base:true},
+  ai:{n:'IA do Zoom + ZoomMate',d:'Resumos e próximos passos incluídos; ZoomMate para automatizar tarefas'},
+  phone:{n:'Zoom Phone',d:'Migração do PABX, portabilidade e filas'},
+  cc:{n:'Zoom Contact Center',d:'Multicanal com WhatsApp, Virtual Agent e AI Expert Assist'},
+  rooms:{n:'Zoom Rooms + dispositivos',d:'HP | Poly, Logitech e Yealink'},
+  intra:{n:'Workvivo',d:'Comunicação interna e engajamento'}
+};
+let size='51 a 250 pessoas';
+const stack=document.getElementById('stack'),note=document.getElementById('bpNote');
+function sel(){return [...document.querySelectorAll('#needs input:checked')].map(i=>i.value)}
+function render(){
+  const s=sel();
+  stack.innerHTML=s.length?s.map(k=>`<div class="mod ${MODS[k].base?'mod--base':''}"><div><b>${MODS[k].n}</b><br><span>${MODS[k].d}</span></div></div>`).join(''):'<div class="blueprint__empty">Marque ao menos uma necessidade para montar o desenho.</div>';
+  const extra=[];if(s.includes('phone'))extra.push('a migração da telefonia');if(s.includes('cc'))extra.push('a configuração do atendimento');if(s.includes('rooms'))extra.push('o projeto das salas');
+  note.textContent=s.length?`Para ${size}${extra.length?', incluindo '+extra.join(', '):''}. O licenciamento ideal (Pro, Business, Enterprise ou Education) é definido no diagnóstico, de acordo com o perfil de cada usuário.`:'';
+}
+document.querySelectorAll('#needs input').forEach(i=>i.addEventListener('change',render));
+document.querySelectorAll('#size button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('#size button').forEach(x=>x.setAttribute('aria-pressed',x===b));size=b.dataset.size;render()}));
+render();
+document.getElementById('bpCta').addEventListener('click',()=>{
+  const s=sel();if(!s.length)return;
+  document.getElementById('f-msg').value=`Cenário montado na página: ${s.map(k=>MODS[k].n).join(', ')}. Time: ${size}.`;
+  document.getElementById('f-int').value=s.length>2?'Plataforma completa':'';
+  trackCTA('configurador');
+});
+
+/* ---------- Nav ativa ---------- */
+const secs=[...document.querySelectorAll('main section[id]')],navAs=[...document.querySelectorAll('.nav__links a')];
+addEventListener('scroll',()=>{let cur='';secs.forEach(s=>{if(scrollY>=s.offsetTop-120)cur=s.id});navAs.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+cur))},{passive:true});
+</script>
+
+<!-- Supabase + EmailJS: mesmo padrão das LPs comerciais de maio/2026 -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+const EIXO='zoom';
+let SUPA=null;
+try{
+  SUPA=window.supabase.createClient('https://ybrdojfeqtguomzvjhfh.supabase.co','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlicmRvamZlcXRndW9tenZqaGZoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgwMTMzNjIsImV4cCI6MjA5MzU4OTM2Mn0.a6dz5SSVKDdqXVoiy4s07-DlLHDbCs7Sm-W1Ib_UTTo');
+  emailjs.init('MO-cuxGbI53ATKR36');
+}catch(e){console.warn('Integrações indisponíveis:',e)}
+
+async function logEvent(tipo,extra=''){try{if(SUPA)await SUPA.from('lp_events').insert({tipo,eixo:EIXO,origem_url:location.href+extra,user_agent:navigator.userAgent.slice(0,200)})}catch(e){console.warn('Tracking:',e)}}
+function trackCTA(label){logEvent('cta_click','#'+label)}
+function openWhatsApp(){logEvent('whatsapp_click')}
+
+async function submitForm(ev){
+  ev.preventDefault();
+  const v=id=>document.getElementById(id).value.trim();
+  const nome=v('f-nome'),email=v('f-email'),empresa=v('f-empresa');
+  const err=document.getElementById('formErr');
+  if(!nome||!email||!empresa||!/\S+@\S+\.\S+/.test(email)){err.style.display='block';return}
+  err.style.display='none';
+  const btn=document.querySelector('.form-submit'),orig=btn.textContent;btn.textContent='Enviando...';btn.disabled=true;
+  const lead={nome,email,empresa,cargo:v('f-cargo'),telefone:v('f-tel'),interesse:v('f-int'),mensagem:v('f-msg'),eixo:EIXO,origem_url:location.href,status:'novo'};
+  try{
+    if(!SUPA)throw new Error('Supabase indisponível');
+    const {error}=await SUPA.from('lp_leads').insert(lead);if(error)throw error;
+    logEvent('form_submit');
+    try{await emailjs.send('service_u11rjlp','template_pu1pc8m',{lead_nome:nome,lead_email:email,lead_empresa:empresa,lead_telefone:lead.telefone,lead_interesse:lead.interesse,lead_mensagem:lead.mensagem,lead_eixo:EIXO,lead_origem:location.href,to_email:'contato@xpon.com.br'})}catch(e){console.warn('EmailJS:',e)}
+    document.getElementById('form-body').style.display='none';document.getElementById('form-ok').style.display='block';
+  }catch(e){
+    console.error(e);err.textContent='Não foi possível enviar agora. Tente de novo ou chame no WhatsApp: +55 11 93954-8201.';err.style.display='block';
+    btn.textContent=orig;btn.disabled=false;
+  }
+}
+</script>
+</body>
+</html>
