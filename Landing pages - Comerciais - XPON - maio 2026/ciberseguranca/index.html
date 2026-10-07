@@ -726,7 +726,7 @@ async function submitForm() {
   }
   function ev(tipo,detalhe){return rpc('registrar_evento_site',{p_tipo:tipo,p_pagina:PAG,p_detalhe:detalhe?String(detalhe).slice(0,200):null})}
   window.xpCrmEvento=ev;
-  if(!/^(localhost|127\.|file)/.test(location.hostname||'file')) ev('visita',document.title);
+  if(!/^(localhost|127\.|file)|--/.test(location.hostname||'file')) ev('visita',document.title);
 
   document.addEventListener('click',function(e){
     var a=e.target&&e.target.closest?e.target.closest('a,button'):null; if(!a) return;
