@@ -710,5 +710,69 @@ async function submitForm() {
    title="Falar no WhatsApp">
   <svg width="26" height="26" fill="white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
 </a>
+<!-- XP On · ponte com o CRM Marketing (crm-xpon.netlify.app). Registra visita, cliques em WhatsApp/telefone/e-mail e envios de formulário.
+     Eventos não levam dado pessoal; o lead do formulário entra em Contatos e no Funil (etapa Lead). Nunca bloqueia a página. -->
+<script id="xp-crm-bridge">
+(function(){
+  var U='https://dttsydouqpqmejwsrjhq.supabase.co/rest/v1/rpc/';
+  var K='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR0dHN5ZG91cXBxbWVqd3NyamhxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODgyNzMwMzAsImV4cCI6MjEwMzg0OTAzMH0.yObXebre21x6XEVP5nPacRBH86IjYv2OPgUHuanI2hQ';
+  var PAG=(location.hostname.replace(/\.netlify\.app$/,'')+location.pathname.replace(/index\.html$/,'').replace(/\/$/,'')).slice(0,120);
+  function rpc(fn,body){
+    try{
+      return fetch(U+fn,{method:'POST',keepalive:true,
+        headers:{'Content-Type':'application/json','apikey':K,'Authorization':'Bearer '+K},
+        body:JSON.stringify(body)}).then(function(r){return r.ok}).catch(function(){return false});
+    }catch(e){return Promise.resolve(false)}
+  }
+  function ev(tipo,detalhe){return rpc('registrar_evento_site',{p_tipo:tipo,p_pagina:PAG,p_detalhe:detalhe?String(detalhe).slice(0,200):null})}
+  window.xpCrmEvento=ev;
+  if(!/^(localhost|127\.|file)/.test(location.hostname||'file')) ev('visita',document.title);
+
+  document.addEventListener('click',function(e){
+    var a=e.target&&e.target.closest?e.target.closest('a,button'):null; if(!a) return;
+    var h=a.getAttribute('href')||'', oc=a.getAttribute('onclick')||'', tx=(a.textContent||'').trim().replace(/\s+/g,' ').slice(0,80);
+    if(/wa\.me|api\.whatsapp|openWhatsApp/i.test(h+' '+oc)) ev('whatsapp',tx);
+    else if(/^tel:/i.test(h)) ev('telefone',h.slice(4));
+    else if(/^mailto:/i.test(h)) ev('email',h.slice(7).split('?')[0]);
+    if(a.matches && a.matches('.form-submit,[type=submit],[onclick*="submit"]')) lead(a);
+  },true);
+  document.addEventListener('submit',function(e){ lead(e.target) },true);
+
+  function scope(el){
+    var f=el.closest?el.closest('form'):null; if(f) return f;
+    var p=el; while(p&&p!==document.body){ if(p.querySelector&&p.querySelector('input[type=email],input[id*=mail],input[name*=mail]')) return p; p=p.parentElement }
+    return document;
+  }
+  function val(root,re){
+    var els=root.querySelectorAll('input,select,textarea');
+    for(var i=0;i<els.length;i++){var el=els[i]; if(el.type==='hidden'||el.type==='checkbox') continue;
+      var k=((el.name||'')+' '+(el.id||'')).toLowerCase(); if(re.test(k)&&el.value) return String(el.value).trim()}
+    return '';
+  }
+  var last=0;
+  function lead(el){
+    try{
+      var root=scope(el), email=val(root,/mail/);
+      if(!email||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return;
+      if(Date.now()-last<5000) return; last=Date.now();
+      var eixo=(typeof EIXO!=='undefined'?EIXO:'')||val(root,/eixo/)||(window.XP_CRM_EIXO||'');
+      if(/zoom|video|colab/i.test(eixo+' '+document.title)&&!/ciber|infra/i.test(eixo)) eixo='colaboracao';
+      var extra=[['Interesse',val(root,/(^|[\s_-])int(eresse)?\b|solu/)],['Porte',val(root,/porte/)],['Cargo',val(root,/cargo/)]]
+        .filter(function(x){return x[1]}).map(function(x){return x[0]+': '+x[1]}).join('. ');
+      var msg=val(root,/msg|mensagem|message|contexto|cenario/);
+      ev('formulario',document.title);
+      rpc('receber_lead',{
+        p_nome:val(root,/(^|[\s_-])(nome|name|n)\b/)||email.split('@')[0],
+        p_email:email,
+        p_empresa:val(root,/empresa|company|organiza/)||null,
+        p_telefone:val(root,/tel|fone|phone|whats/)||null,
+        p_eixo:eixo||null,
+        p_mensagem:('['+document.title.slice(0,60)+'] '+[extra,msg].filter(Boolean).join('. ')).slice(0,1000),
+        p_origem:'site'});
+    }catch(e){}
+  }
+})();
+</script>
+
 </body>
 </html>

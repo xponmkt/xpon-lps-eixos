@@ -257,5 +257,69 @@ a{text-decoration:none;color:inherit}
     <a href="mailto:contato@xpon.com.br">contato@xpon.com.br</a>
   </p>
 </footer>
+<!-- XP On · ponte com o CRM Marketing (crm-xpon.netlify.app). Registra visita, cliques em WhatsApp/telefone/e-mail e envios de formulário.
+     Eventos não levam dado pessoal; o lead do formulário entra em Contatos e no Funil (etapa Lead). Nunca bloqueia a página. -->
+<script id="xp-crm-bridge">
+(function(){
+  var U='https://dttsydouqpqmejwsrjhq.supabase.co/rest/v1/rpc/';
+  var K='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR0dHN5ZG91cXBxbWVqd3NyamhxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODgyNzMwMzAsImV4cCI6MjEwMzg0OTAzMH0.yObXebre21x6XEVP5nPacRBH86IjYv2OPgUHuanI2hQ';
+  var PAG=(location.hostname.replace(/\.netlify\.app$/,'')+location.pathname.replace(/index\.html$/,'').replace(/\/$/,'')).slice(0,120);
+  function rpc(fn,body){
+    try{
+      return fetch(U+fn,{method:'POST',keepalive:true,
+        headers:{'Content-Type':'application/json','apikey':K,'Authorization':'Bearer '+K},
+        body:JSON.stringify(body)}).then(function(r){return r.ok}).catch(function(){return false});
+    }catch(e){return Promise.resolve(false)}
+  }
+  function ev(tipo,detalhe){return rpc('registrar_evento_site',{p_tipo:tipo,p_pagina:PAG,p_detalhe:detalhe?String(detalhe).slice(0,200):null})}
+  window.xpCrmEvento=ev;
+  if(!/^(localhost|127\.|file)/.test(location.hostname||'file')) ev('visita',document.title);
+
+  document.addEventListener('click',function(e){
+    var a=e.target&&e.target.closest?e.target.closest('a,button'):null; if(!a) return;
+    var h=a.getAttribute('href')||'', oc=a.getAttribute('onclick')||'', tx=(a.textContent||'').trim().replace(/\s+/g,' ').slice(0,80);
+    if(/wa\.me|api\.whatsapp|openWhatsApp/i.test(h+' '+oc)) ev('whatsapp',tx);
+    else if(/^tel:/i.test(h)) ev('telefone',h.slice(4));
+    else if(/^mailto:/i.test(h)) ev('email',h.slice(7).split('?')[0]);
+    if(a.matches && a.matches('.form-submit,[type=submit],[onclick*="submit"]')) lead(a);
+  },true);
+  document.addEventListener('submit',function(e){ lead(e.target) },true);
+
+  function scope(el){
+    var f=el.closest?el.closest('form'):null; if(f) return f;
+    var p=el; while(p&&p!==document.body){ if(p.querySelector&&p.querySelector('input[type=email],input[id*=mail],input[name*=mail]')) return p; p=p.parentElement }
+    return document;
+  }
+  function val(root,re){
+    var els=root.querySelectorAll('input,select,textarea');
+    for(var i=0;i<els.length;i++){var el=els[i]; if(el.type==='hidden'||el.type==='checkbox') continue;
+      var k=((el.name||'')+' '+(el.id||'')).toLowerCase(); if(re.test(k)&&el.value) return String(el.value).trim()}
+    return '';
+  }
+  var last=0;
+  function lead(el){
+    try{
+      var root=scope(el), email=val(root,/mail/);
+      if(!email||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return;
+      if(Date.now()-last<5000) return; last=Date.now();
+      var eixo=(typeof EIXO!=='undefined'?EIXO:'')||val(root,/eixo/)||(window.XP_CRM_EIXO||'');
+      if(/zoom|video|colab/i.test(eixo+' '+document.title)&&!/ciber|infra/i.test(eixo)) eixo='colaboracao';
+      var extra=[['Interesse',val(root,/(^|[\s_-])int(eresse)?\b|solu/)],['Porte',val(root,/porte/)],['Cargo',val(root,/cargo/)]]
+        .filter(function(x){return x[1]}).map(function(x){return x[0]+': '+x[1]}).join('. ');
+      var msg=val(root,/msg|mensagem|message|contexto|cenario/);
+      ev('formulario',document.title);
+      rpc('receber_lead',{
+        p_nome:val(root,/(^|[\s_-])(nome|name|n)\b/)||email.split('@')[0],
+        p_email:email,
+        p_empresa:val(root,/empresa|company|organiza/)||null,
+        p_telefone:val(root,/tel|fone|phone|whats/)||null,
+        p_eixo:eixo||null,
+        p_mensagem:('['+document.title.slice(0,60)+'] '+[extra,msg].filter(Boolean).join('. ')).slice(0,1000),
+        p_origem:'site'});
+    }catch(e){}
+  }
+})();
+</script>
+
 </body>
 </html>
